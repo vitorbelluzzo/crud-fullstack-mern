@@ -5,22 +5,15 @@ import { Grid } from './components/grid'
 import axios from 'axios'
 
 export function App() {
-  const [users, setUsers] = useState<Users[]>([])
-  const [onEdit, setOnEdit] = useState(null)
+  const [users, setUsers] = useState<any[]>([])
+  const [onEdit, setOnEdit] = useState<any>(null)
 
   async function getUsers() {
     try {
-      const res = await axios.get(`http://localhost:8800/`)
-
-      setUsers(
-        res.data.sort((primeiroNome: string, segundoNome: string) => {
-          return primeiroNome > segundoNome ? 1 : -1
-        }),
-      )
-    } catch (error: unknown) {
-      typeof error === 'string'
-        ? toast.error(error)
-        : toast.error('um erro ocorreu')
+      const res = await axios.get<any[]>('http://localhost:8800')
+      setUsers(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)))
+    } catch (error) {
+      toast.error(error.message)
     }
   }
 
@@ -41,7 +34,7 @@ export function App() {
           </div>
 
           <div className="rounded-lg bg-zinc-200 flex ring-1 ring-zinc-950 flex-col py-10 px-10 h-[40.5rem] w-[650px]">
-            <Grid users={users} setUsers={setUsers} setOnEdit={setOnEdit} />
+            <Grid users={users} setOnEdit={setOnEdit} setUsers={setUsers} />
           </div>
         </div>
       </div>

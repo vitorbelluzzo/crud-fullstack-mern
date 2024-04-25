@@ -6,30 +6,31 @@ interface User {
   id: number
   nome: string
   email: string
-  fone?: number
-  data_nascimento?: Date
+  fone?: string
 }
+
 interface GridProps {
   users: User[]
   setUsers: React.Dispatch<React.SetStateAction<User[]>>
-  setOnEdit: React.Dispatch<React.SetStateAction<User[]>>
+  setOnEdit: React.Dispatch<React.SetStateAction<User | null>>
 }
 
-export function Grid({ users, setUsers }: GridProps) {
-  async function handleDelete(id: number) {
-    await axios
-      .delete(`http://localhost:8800/${id}`)
-      .then(({ data }) => {
-        const newArray = data.filter((user: User) => user.id !== id)
-        setUsers(newArray)
-        toast.success(data)
-      })
-      .catch(({ data }) => {
-        toast.error(data)
-      })
-
+export function Grid({ users, setUsers, setOnEdit }: GridProps) {
+  const handleEdit = (item: User) => {
+    setOnEdit(item)
+  }
+  const handleDelete = async (id: number) => {
+    try {
+      await axios.delete(`http://localhost:8800/${id}`)
+      const newArray = users.filter((user) => user.id !== id)
+      setUsers(newArray)
+      toast.success('Usuário deletado com sucesso')
+    } catch (error: unknown) {
+      toast.error(error.message || 'Um erro ocorreu')
+    }
     setOnEdit(null)
   }
+
   return (
     <table className="w-full h-full ">
       <thead>
@@ -40,12 +41,15 @@ export function Grid({ users, setUsers }: GridProps) {
       </thead>
       <div className=" border border-black "></div>
       <tbody>
-        {users.map((user, i) => (
-          <tr key={i} className="items-center gap-12  inline-flex">
+        {users.map((user) => (
+          <tr key={user.id} className="items-center gap-12  inline-flex">
             <td className="text-xl font-normal w-48">{user.nome}</td>
             <td className="text-xl font-normal w-48">{user.email}</td>
             <td className="justify-center items-center gap-6 flex w-24">
-              <FaRegEdit className="size-8 cursor-pointer" />
+              <FaRegEdit
+                className="size-8 cursor-pointer"
+                onClick={() => handleEdit(user)}
+              />
               <FaRegTrashAlt
                 onClick={() => handleDelete(user.id)}
                 className="size-8 cursor-pointer text-[#FF0000]"
