@@ -26,10 +26,14 @@ export function Grid({ users, setUsers, setOnEdit }: GridProps) {
       setUsers(newArray)
       toast.success('Usuário deletado com sucesso')
     } catch (error: unknown) {
-      toast.error(error.message || 'Um erro ocorreu')
+      if (error instanceof Error && error.message) {
+        toast.error(error.message)
+      } else {
+        toast.error('Um erro ocorreu')
+      }
     }
     setOnEdit(null)
-  }
+  } // Add closing curly brace here
 
   return (
     <table className="w-full h-full ">
