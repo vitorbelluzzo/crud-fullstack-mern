@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useEffect, useRef } from 'react'
 import { toast } from 'sonner'
+import { format } from 'date-fns'
 
 interface User {
   id: number
@@ -26,7 +27,10 @@ export function Form({ getUsers, onEdit, setOnEdit }: FormProps) {
         user.nome.value = onEdit.nome
         user.email.value = onEdit.email
         user.fone.value = onEdit.fone
-        user.data_nascimento.value = onEdit.data_nascimento
+        user.data_nascimento.value = format(
+          new Date(onEdit.data_nascimento),
+          'yyyy-MM-dd',
+        )
       }
     }
   }, [onEdit])
@@ -61,6 +65,7 @@ export function Form({ getUsers, onEdit, setOnEdit }: FormProps) {
       } else {
         await axios.post('http://localhost:8800', formData)
       }
+      console.log(formData)
 
       toast.success('Usuário salvo com sucesso')
       getUsers()
@@ -89,7 +94,7 @@ export function Form({ getUsers, onEdit, setOnEdit }: FormProps) {
         <input
           type="text"
           name="nome"
-          className="bg-transparent ring-1 ring-zinc-950 rounded-xl  p-4"
+          className="bg-transparent ring-[0.5px] ring-zinc-500 rounded-xl p-4 focus:outline-none"
         />
       </label>
       <label className="flex flex-col mt-4 text-xl gap-2 font-semibold">
@@ -97,7 +102,7 @@ export function Form({ getUsers, onEdit, setOnEdit }: FormProps) {
         <input
           type="email"
           name="email"
-          className="bg-transparent ring-1 ring-zinc-950 rounded-xl p-4"
+          className="bg-transparent ring-[0.5px] ring-zinc-500 rounded-xl p-4 focus:outline-none"
         />
       </label>
       <label className="flex flex-col mt-4 text-xl gap-2 font-semibold">
@@ -105,7 +110,7 @@ export function Form({ getUsers, onEdit, setOnEdit }: FormProps) {
         <input
           type="tel"
           name="fone"
-          className="bg-transparent ring-1 ring-zinc-950 rounded-xl  p-4"
+          className="bg-transparent ring-[0.5px] ring-zinc-500 rounded-xl p-4 focus:outline-none"
         />
       </label>
       <label className="flex flex-col mt-4 text-xl gap-2 font-semibold ">
@@ -113,14 +118,14 @@ export function Form({ getUsers, onEdit, setOnEdit }: FormProps) {
         <input
           type="date"
           name="data_nascimento"
-          className="bg-transparent ring-1 ring-zinc-950 appearance-none rounded-xl p-4"
+          className="bg-transparent ring-[0.5px] ring-zinc-500 appearance-none rounded-xl p-4 focus:outline-none "
         />
       </label>
 
       <label className="flex justify-center mt-8  mb-6 ">
         <button
           type="submit"
-          className="ring-1 ring-zinc-950  justify-center p-4 rounded-2xl w-52 flex items-center"
+          className="ring-[0.5px] ring-zinc-500  justify-center p-4 rounded-2xl w-52 flex items-center"
         >
           Salvar
         </button>

@@ -35,15 +35,15 @@ export function App() {
       <Toaster position="top-center" richColors />
       <div className="flex justify-center items-center mt-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-20 items-center  max-w-4xl">
-          <div className="rounded-lg bg-zinc-50 border ring-1 ring-zinc-950 flex flex-col justify-center px-10 my-10 lg:w-[460px] w-[650px]">
-            <span className="font-bold text-2xl mt-[39px] justify-center flex">
+          <div className="rounded-lg bg-white   flex flex-col justify-center px-10 my-10 lg:w-[460px] w-[650px] shadow-2xl  ">
+            <span className="font-semibold text-2xl mt-[39px] justify-center flex">
               Cadastro de Convidados
             </span>
             <Form getUsers={getUsers} onEdit={onEdit} setOnEdit={setOnEdit} />
           </div>
 
-          <div className="rounded-lg bg-zinc-50 flex ring-1 ring-zinc-950 flex-col py-10 px-10 h-[39.7rem] w-[650px] border justify-center my-10 ">
-            <span className="font-bold text-2xl  justify-center flex">
+          <div className="rounded-lg bg-white flex  flex-col py-10 px-10 h-[39.7rem] w-[650px]  justify-center my-10 shadow-2xl ">
+            <span className="font-semibold text-2xl  justify-center flex">
               Lista de convidados
             </span>
             <Grid users={users} setOnEdit={setOnEdit} setUsers={setUsers} />

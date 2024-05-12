@@ -7,7 +7,7 @@ interface User {
   nome: string
   email: string
   fone: string
-  data_nascimento: number
+  data_nascimento: string
 }
 
 interface GridProps {
@@ -38,17 +38,17 @@ export function Grid({ users, setUsers, setOnEdit }: GridProps) {
   }
 
   return (
-    <table className="w-full h-full ">
+    <table className="w-full h-full  ">
       <thead>
         <tr className=" gap-40 inline-flex p-5 items-start">
-          <th className=" text-2xl font-normal">Nome</th>
-          <th className=" text-2xl font-normal">E-mail</th>
+          <th className=" text-xl font-semibold">Nome</th>
+          <th className=" text-xl font-semibold">E-mail</th>
         </tr>
       </thead>
-      <div className=" border border-black "></div>
-      <tbody className="">
+      <div className=" ring-[0.1px] ring-zinc-950 shadow-2xl "></div>
+      <tbody className=" mt-6 flex flex-col gap-3">
         {users.map((user) => (
-          <tr key={user.id} className=" gap-16  inline-flex ">
+          <tr key={user.id} className=" gap-16  flex justify-between">
             <td className="text-xl font-normal ">{user.nome}</td>
             <td className="text-xl font-normal w-48">{user.email}</td>
             <td className="text-xl font-normal w-48 hidden">{user.fone}</td>
@@ -56,15 +56,15 @@ export function Grid({ users, setUsers, setOnEdit }: GridProps) {
               {user.data_nascimento}
             </td>
 
-            <td className="justify-center items-center gap-6 flex w-24">
+            <td className="justify-center items-end w-fit gap-3 flex ">
               <FaRegEdit
-                className="size-8 cursor-pointer"
+                className="size-6 cursor-pointer"
                 onClick={() => handleEdit(user)}
               />
 
               <FaRegTrashAlt
                 onClick={() => handleDelete(user.id)}
-                className="size-8 cursor-pointer text-[#FF0000]"
+                className="size-6 cursor-pointer text-[#FF0000]"
               />
             </td>
           </tr>

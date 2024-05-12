@@ -1,5 +1,6 @@
 import { db } from "../db.js";
 
+
 export const getUsers = (_, response) => {
   const q = "SELECT * FROM usuarios";
 
@@ -52,7 +53,12 @@ export const deleteUser = (req, res) => {
 
   db.query(q, [req.params.id], (err) => {
     if (err) return res.json(err);
+    
+    const resetSequenceQuery = "ALTER TABLE usuarios AUTO_INCREMENT = 1";
+    db.query(resetSequenceQuery, (err) => {
+      if (err) return res.json(err);
 
-    return res.status(200).json("Usuário deletado com sucesso.");
+      return res.status(200).json("Usuário deletado com sucesso");
+    });
   });
 };
