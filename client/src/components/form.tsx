@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useRef } from 'react'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 
 interface User {
   id: number
@@ -44,7 +44,7 @@ export function Form({ getUsers, onEdit, setOnEdit }: FormProps) {
       !user.fone.value ||
       !user.data_nascimento.value
     ) {
-      return toast.warn('Preencha todos os campos!')
+      return toast.warning('Preencha todos os campos!')
     }
 
     const formData: User = {

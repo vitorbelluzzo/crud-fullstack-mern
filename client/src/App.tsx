@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react'
 import { Form } from './components/form'
-import { toast, ToastContainer } from 'react-toastify'
 import { Grid } from './components/grid'
 import axios from 'axios'
+import { toast, Toaster } from 'sonner'
 
 export function App() {
   const [users, setUsers] = useState<any[]>([])
@@ -32,29 +32,20 @@ export function App() {
 
   return (
     <>
-      <ToastContainer
-        position="bottom-left"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        className={'size-4'}
-        theme="light"
-      />
+      <Toaster position="top-center" richColors />
       <div className="flex justify-center items-center mt-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-20 items-center  max-w-4xl">
-          <div className="rounded-lg bg-zinc-200 border ring-1 ring-zinc-950 flex flex-col justify-center px-10 my-10 lg:w-[460px] w-[650px]">
+          <div className="rounded-lg bg-zinc-50 border ring-1 ring-zinc-950 flex flex-col justify-center px-10 my-10 lg:w-[460px] w-[650px]">
             <span className="font-bold text-2xl mt-[39px] justify-center flex">
               Cadastro de Convidados
             </span>
             <Form getUsers={getUsers} onEdit={onEdit} setOnEdit={setOnEdit} />
           </div>
 
-          <div className="rounded-lg bg-zinc-200 flex ring-1 ring-zinc-950 flex-col py-10 px-10 h-[40.5rem] w-[650px]">
+          <div className="rounded-lg bg-zinc-50 flex ring-1 ring-zinc-950 flex-col py-10 px-10 h-[39.7rem] w-[650px] border justify-center my-10 ">
+            <span className="font-bold text-2xl  justify-center flex">
+              Lista de convidados
+            </span>
             <Grid users={users} setOnEdit={setOnEdit} setUsers={setUsers} />
           </div>
         </div>

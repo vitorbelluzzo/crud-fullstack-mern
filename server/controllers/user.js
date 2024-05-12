@@ -1,35 +1,36 @@
 import { db } from "../db.js";
 
-export const getUsers = (_, res) => {
+export const getUsers = (_, response) => {
   const q = "SELECT * FROM usuarios";
 
   db.query(q, (err, data) => {
-    if (err) return res.json(err);
+    if (err) return response.json(err);
 
-    return res.status(200).json(data);
+    return response.status(200).json(data);
   });
 };
 
-export const addUser = (req, res) => {
-  const q =
+export const addUser = (request, response) => {
+
+  const query =
     "INSERT INTO usuarios(`nome`, `email`, `fone`, `data_nascimento`) VALUES(?)";
 
   const values = [
-    req.body.nome,
-    req.body.email,
-    req.body.fone,
-    req.body.data_nascimento,
+    request.body.nome,
+    request.body.email,
+    request.body.fone,
+    request.body.data_nascimento,
   ];
 
-  db.query(q, [values], (err) => {
-    if (err) return res.json(err);
+  db.query(query, [values], (err) => {
+    if (err) return response.json(err);
 
-    return res.status(200).json("Usuário criado com sucesso.");
+    return response.status(200).json("Usuário criado com sucesso.");
   });
 };
 
 export const updateUser = (req, res) => {
-  const q =
+  const query =
     "UPDATE usuarios SET `nome` = ?, `email` = ?, `fone` = ?, `data_nascimento` = ? WHERE `id` = ?";
 
   const values = [
@@ -39,7 +40,7 @@ export const updateUser = (req, res) => {
     req.body.data_nascimento,
   ];
 
-  db.query(q, [...values, req.params.id], (err) => {
+  db.query(query, [...values, req.params.id], (err) => {
     if (err) return res.json(err);
 
     return res.status(200).json("Usuário atualizado com sucesso.");
